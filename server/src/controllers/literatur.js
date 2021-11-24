@@ -39,7 +39,7 @@ exports.addLiteratur = async (req, res) => {
     });
 
     if (newLiteratur) {
-      let data = await literatur.findOne({
+      let data = await literatur.findAll({
         where: {
           id: newLiteratur.id,
         },
@@ -56,22 +56,29 @@ exports.addLiteratur = async (req, res) => {
         },
       });
 
+      const allData = data.map((item) => ({
+        id: item.id,
+        title: item.title,
+        userId: item.userId,
+        fullName: item.user.fullName,
+        email: item.user.email,
+        phone: item.user.phone,
+        address: item.user.address,
+        gender: item.user.gender,
+        role: item.user.role,
+        publication_date: item.publication_date,
+        pages: item.pages,
+        ISBN: item.ISBN,
+        author: item.author,
+        attache: pathFile + item.attache,
+        about: item.about,
+        status: item.status,
+      }));
+
       res.send({
         status: "success",
         message: "Add literatur success",
-        data: [
-          {
-            id: data.id,
-            userId: data.userId,
-            publication_date: data.publication_date,
-            pages: data.pages,
-            ISBN: data.ISBN,
-            author: data.author,
-            attache: pathFile + data.attache,
-            about: data.about,
-            status: data.status,
-          },
-        ],
+        data: allData,
       });
     }
   } catch (error) {
@@ -99,29 +106,143 @@ exports.getLiteraturs = async (req, res) => {
       },
     });
 
-    const newData = data.map((item) => ({
+    const allData = data.map((item) => ({
       id: item.id,
       title: item.title,
-      country: item.country,
-      accomodation: item.accomodation,
-      transportation: item.transportation,
-      eat: item.eat,
-      day: item.day,
-      night: item.night,
-      dateTrip: item.dateTrip,
-      price: item.price,
-      quota: item.quota,
-      quotaMinus: item.quotaMinus,
-      description: item.description,
-      attache: JSON.parse(item.attache).map((attache, index) => ({
-        id: index + 1,
-        url: pathFile + attache,
-      })),
+      userId: item.userId,
+      fullName: item.user.fullName,
+      email: item.user.email,
+      phone: item.user.phone,
+      address: item.user.address,
+      gender: item.user.gender,
+      role: item.user.role,
+      publication_date: item.publication_date,
+      pages: item.pages,
+      ISBN: item.ISBN,
+      author: item.author,
+      attache: pathFile + item.attache,
+      about: item.about,
+      status: item.status,
     }));
 
     res.send({
       status: "success",
-      data: newData,
+      data: allData,
+    });
+  } catch (error) {
+    console.log(error);
+    res.send({
+      status: "failed",
+      message: "Server Error",
+    });
+  }
+};
+
+exports.getLiteraturId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = await literatur.findAll({
+      where: {
+        id,
+      },
+      include: [
+        {
+          model: user,
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "password"],
+          },
+        },
+      ],
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
+    });
+
+    const literaturParams = data.map((item) => ({
+      id: item.id,
+      title: item.title,
+      userId: item.userId,
+      fullName: item.user.fullName,
+      email: item.user.email,
+      phone: item.user.phone,
+      address: item.user.address,
+      gender: item.user.gender,
+      role: item.user.role,
+      publication_date: item.publication_date,
+      pages: item.pages,
+      ISBN: item.ISBN,
+      author: item.author,
+      attache: pathFile + item.attache,
+      about: item.about,
+      status: item.status,
+    }));
+
+    res.send({
+      status: "success",
+      data: literaturParams,
+    });
+  } catch (error) {
+    console.log(error);
+    res.send({
+      status: "failed",
+      message: "Server Error",
+    });
+  }
+};
+
+exports.editLiteratur = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await literatur.update(
+      {
+        status: req.body.status,
+      },
+      {
+        where: {
+          id,
+        },
+      }
+    );
+
+    const data = await literatur.findAll({
+      where: {
+        id,
+      },
+      include: [
+        {
+          model: user,
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "password"],
+          },
+        },
+      ],
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
+    });
+
+    const datas = data.map((item) => ({
+      id: item.id,
+      title: item.title,
+      userId: item.userId,
+      fullName: item.user.fullName,
+      email: item.user.email,
+      phone: item.user.phone,
+      address: item.user.address,
+      gender: item.user.gender,
+      role: item.user.role,
+      publication_date: item.publication_date,
+      pages: item.pages,
+      ISBN: item.ISBN,
+      author: item.author,
+      attache: pathFile + item.attache,
+      about: item.about,
+      status: item.status,
+    }));
+
+    res.send({
+      status: "success",
+      data: datas,
     });
   } catch (error) {
     console.log(error);

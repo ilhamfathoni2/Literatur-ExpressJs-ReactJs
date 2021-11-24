@@ -13,7 +13,12 @@ const {
   updateUser,
 } = require("../controllers/auth");
 
-const { addLiteratur } = require("../controllers/literatur");
+const {
+  addLiteratur,
+  getLiteraturs,
+  getLiteraturId,
+  editLiteratur,
+} = require("../controllers/literatur");
 
 const { avatarFile } = require("../middlewares/avatar");
 const { attacheFile } = require("../middlewares/files");
@@ -28,7 +33,9 @@ router.delete("/users/:id", auth, adminOnly, deleteUser);
 router.get("/check-auth", auth, checkAuth);
 router.get("/user-data", auth, user);
 
-router.get("/literatur", auth, addLiteratur);
+router.get("/literatur", auth, getLiteraturs);
+router.get("/literatur/:id", auth, getLiteraturId);
+router.patch("/literatur/:id", auth, editLiteratur);
 router.post("/add-literatur", auth, attacheFile("attache"), addLiteratur);
 
 module.exports = router;
