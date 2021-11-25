@@ -1,0 +1,109 @@
+.title-sign-up {
+  color: white;
+  font-weight: 500;
+  font-weight: 50px;
+}
+
+.form-self {
+  color: white !important;
+  border: 2px solid #bcbcbc !important;
+  background: rgba(210, 210, 210, 0.25);
+}
+
+.form-self-black {
+  color: white !important;
+  border: 2px solid #bcbcbc !important;
+  background: rgba(210, 210, 210, 0.25);
+}
+.form-self-black:focus {
+  color: black !important;
+  box-shadow: none !important;
+  border: 2px solid #bcbcbc !important;
+  background: rgba(210, 210, 210, 0.25);
+}
+.form-self:focus {
+  color: white !important;
+  box-shadow: none !important;
+  border: 2px solid #bcbcbc !important;
+  background: rgba(210, 210, 210, 0.25);
+}
+
+.sign-up {
+  margin-right: 25px;
+  background-color: #af2e1c;
+  border: none;
+  width: 115px;
+  font-size: 400;
+}
+
+.sign-up:hover {
+  box-shadow: none !important;
+  background-color: #ca3623 !important;
+  border: none !important;
+}
+
+.sign-up:focus {
+  box-shadow: none !important;
+  border: none !important;
+  background: #ca3623 !important;
+}
+
+.sign-in {
+  background-color: #ffffff;
+  border: none;
+  width: 115px;
+  color: black;
+  font-size: 400;
+}
+
+.sign-in:hover {
+  box-shadow: none !important;
+  background-color: #eeeeee !important;
+  color: black !important;
+  border: none !important;
+}
+
+.sign-in:focus {
+  box-shadow: none !important;
+  border: none !important;
+  color: black !important;
+  background: #eeeeee !important;
+}
+
+.bg-blacks {
+  background-color: #161616 !important;
+  border-radius: 3px !important;
+  color: white;
+}
+
+.btn-new-signup {
+  margin-top: 25px;
+  width: 100%;
+  padding: 10px;
+  color: white;
+  background-color: #af2e1c;
+  border: none;
+}
+
+.btn-new-signup:hover {
+  box-shadow: none !important;
+  border: none !important;
+  background: #ca3623 !important;
+}
+
+.btn-new-signup:focus {
+  box-shadow: none !important;
+  border: none !important;
+  background: #ca3623 !important;
+}
+
+.klik {
+  color: #af2e1c;
+}
+
+.foot {
+  margin-top: 15px;
+  color: white;
+  font-size: 18px;
+  text-align: center;
+}

@@ -1,0 +1,49 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.logo {
+  margin-top: 25px;
+}
+
+.title {
+  font-family: "Times New Roman", Times, serif;
+  font-style: italic;
+  float: left;
+  font-size: 90px;
+  font-weight: 700;
+  color: white;
+}
+
+.cv {
+  align-items: center;
+}
+
+.cover {
+  display: flex;
+  flex-direction: column;
+}
+
+.slug {
+  color: white;
+  font-weight: 400;
+  font-size: 20px;
+  width: 480px;
+}
+.img-cover {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.btn-auth {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.img-book {
+  float: right;
+  width: 500px;
+}
