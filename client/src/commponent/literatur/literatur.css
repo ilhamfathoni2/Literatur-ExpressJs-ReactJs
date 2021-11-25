@@ -1,0 +1,29 @@
+.title-litera {
+  font-family: "Times New Roman", Times, serif;
+  color: white;
+  font-weight: 600;
+}
+
+.width-file {
+  width: 280px;
+}
+
+.btn-literatur {
+  float: right;
+  color: #fff;
+  background-color: #af2e1c !important;
+  border-color: #af2e1c !important;
+  border-radius: 0.25rem !important;
+  width: 170px;
+}
+
+.btn-literatur:focus {
+  box-shadow: none !important;
+  background-color: #af2e1c !important;
+  border: rgb(238, 75, 53) 3px solid !important;
+}
+
+.btn-literatur:hover {
+  box-shadow: none !important;
+  background-color: #d1422f !important;
+}
