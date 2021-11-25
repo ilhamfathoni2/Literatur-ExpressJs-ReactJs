@@ -31,8 +31,8 @@
 .download {
   color: #fff;
   background-color: #af2e1c !important;
-  border-color: #af2e1c !important;
   border-radius: 0.25rem !important;
+  border: none;
   width: 150px;
 }
 
@@ -42,10 +42,9 @@
   border: rgb(238, 75, 53) 3px solid !important;
 }
 
-.download {
+.download:hover {
   box-shadow: none !important;
-  background-color: #af2e1c !important;
-  border: rgb(238, 75, 53) 3px solid !important;
+  background-color: #c93623 !important;
 }
 
 .paragraf {
