@@ -1,4 +1,4 @@
-const { user, literatur } = require("../../models");
+const { user, literatur, book_mark } = require("../../models");
 const Joi = require("joi");
 const pathFile = "http://localhost:5000/uploads/";
 
@@ -25,9 +25,9 @@ exports.addLiteratur = async (req, res) => {
   try {
     const { idUser } = req.user;
 
-    const newLiteratur = await literatur.create({
+    const newBookMark = await literatur.create({
       title: req.body.title,
-      userId: req.body.userId,
+      userId: req.user.id,
       publication_date: req.body.publication_date,
       pages: req.body.pages,
       ISBN: req.body.ISBN,
@@ -38,10 +38,10 @@ exports.addLiteratur = async (req, res) => {
       idUser,
     });
 
-    if (newLiteratur) {
+    if (newBookMark) {
       let data = await literatur.findAll({
         where: {
-          id: newLiteratur.id,
+          id: newBookMark.id,
         },
         include: [
           {
@@ -84,7 +84,7 @@ exports.addLiteratur = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      status: "failed",
+      status: "faileds",
       message: "Server Error",
     });
   }
@@ -247,6 +247,188 @@ exports.editLiteratur = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.send({
+      status: "failed",
+      message: "Server Error",
+    });
+  }
+};
+
+exports.bookMark = async (req, res) => {
+  try {
+    const { idUsers } = req.user;
+
+    const newBookMark = await book_mark.create({
+      titleId: req.body.titleId,
+      Iduser: req.user.id,
+      idUsers,
+    });
+
+    console.log("create", newBookMark);
+
+    if (newBookMark) {
+      let data = await book_mark.findAll({
+        where: {
+          id: newBookMark.id,
+        },
+        include: [
+          {
+            model: user,
+            as: "dataUser",
+            attributes: {
+              exclude: ["createdAt", "updatedAt", "password"],
+            },
+          },
+          {
+            model: literatur,
+            as: "dataLiteratur",
+            attributes: {
+              exclude: ["createdAt", "updatedAt"],
+            },
+          },
+        ],
+        attributes: {
+          exclude: ["createdAt", "updatedAt"],
+        },
+      });
+
+      console.log("datas", data);
+
+      res.send({
+        status: "success",
+        message: "Add book mark success",
+        data,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      status: "failed",
+      message: "Server Error",
+    });
+  }
+};
+
+exports.myCollections = async (req, res) => {
+  try {
+    const data = await book_mark.findAll({
+      where: {
+        Iduser: req.user.id,
+      },
+      include: [
+        {
+          model: user,
+          as: "dataUser",
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "password"],
+          },
+        },
+        {
+          model: literatur,
+          as: "dataLiteratur",
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        },
+      ],
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
+    });
+
+    const collections = data.map((item) => ({
+      id: item.id,
+      title: item.dataLiteratur.title,
+      userId: item.dataLiteratur.userId,
+      fullName: item.dataUser.fullName,
+      email: item.dataUser.email,
+      phone: item.dataUser.phone,
+      address: item.dataUser.address,
+      gender: item.dataUser.gender,
+      role: item.dataUser.role,
+      publication_date: item.dataLiteratur.publication_date,
+      pages: item.dataLiteratur.pages,
+      ISBN: item.dataLiteratur.ISBN,
+      author: item.dataLiteratur.author,
+      attache: pathFile + item.dataLiteratur.attache,
+      about: item.dataLiteratur.about,
+      status: item.dataLiteratur.status,
+    }));
+
+    res.send({
+      status: "success",
+      data: collections,
+    });
+  } catch (error) {
+    console.log(error);
+    res.send({
+      status: "failed",
+      message: "Server Error",
+    });
+  }
+};
+
+exports.deleteBookMark = async (req, res) => {
+  try {
+    const { idUser } = req.user;
+    const { id } = req.params;
+
+    await book_mark.destroy({
+      where: {
+        id,
+      },
+      idUser,
+    });
+    const data = await book_mark.findOne({
+      where: {
+        id,
+      },
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
+    });
+
+    res.send({
+      status: "success",
+      message: "Delete collection success",
+      data,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      status: "failed",
+      message: "Server Error",
+    });
+  }
+};
+
+exports.deleteLiteratur = async (req, res) => {
+  try {
+    const { idUser } = req.user;
+    const { id } = req.params;
+
+    await literatur.destroy({
+      where: {
+        id,
+      },
+      idUser,
+    });
+    const data = await literatur.findOne({
+      where: {
+        id,
+      },
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
+    });
+
+    res.send({
+      status: "success",
+      message: "Delete literatur success",
+      data,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
       status: "failed",
       message: "Server Error",
     });
