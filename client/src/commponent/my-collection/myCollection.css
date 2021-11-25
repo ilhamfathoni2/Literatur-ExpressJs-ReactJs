@@ -1,0 +1,26 @@
+.title-book {
+  color: white;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 175px;
+}
+
+.title-litera {
+  font-family: "Times New Roman", Times, serif;
+  color: white;
+  font-weight: 600;
+}
+
+.space {
+  margin: 30px 0 !important;
+}
+
+.author {
+  color: #929292;
+  float: left;
+}
+
+.since {
+  color: #929292;
+  float: right;
+}

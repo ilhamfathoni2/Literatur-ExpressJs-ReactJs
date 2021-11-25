@@ -12,6 +12,7 @@ import SearchResult from "./pages/searchResult";
 import { API, setAuthToken } from "./config/api";
 import AddCollection from "./pages/addCollect";
 import AddLiteratur from "./pages/addLiteratur";
+import MyCollection from "./pages/myCollection";
 
 function App() {
   const [state, dispatch] = useContext(UserContext);
@@ -71,6 +72,7 @@ function App() {
         <Route exact path="/search" component={SearchResult} />
         <Route exact path="/add-collection" component={AddCollection} />
         <Route exact path="/add-literatur" component={AddLiteratur} />
+        <Route exact path="/my-collection" component={MyCollection} />
       </Switch>
     </>
   );
