@@ -4,8 +4,6 @@ import { Container, Modal, Button, Form, Image } from "react-bootstrap";
 import "./authpage.css";
 import books from "../src-assets/books.png";
 import logo from "../src-assets/Logo.png";
-// import SignUp from "../commponent/auth/SignUp";
-// import SignIn from "../commponent/auth/SignIn";
 
 function AuthPage() {
   const title = "Home";

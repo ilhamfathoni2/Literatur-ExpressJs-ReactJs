@@ -1,0 +1,59 @@
+.width-min {
+  width: 60%;
+}
+
+.btn-danger {
+  color: #fff;
+  background-color: #af2e1c !important;
+  border-color: #af2e1c !important;
+  margin-left: 15px !important;
+}
+
+.btn {
+  border-radius: 0.25rem !important;
+}
+
+.form-control {
+  border-radius: 0.25rem !important;
+  color: white !important;
+  border: 2px solid #bcbcbc !important;
+  background: rgba(210, 210, 210, 0.25);
+}
+.form-control:focus {
+  color: white !important;
+  box-shadow: none !important;
+  border: 2px solid #bcbcbc !important;
+  background: rgba(210, 210, 210, 0.25);
+}
+
+.anytime {
+  font-size: 18px;
+  color: #af2e1c;
+  font-weight: 500;
+  margin-left: 16px;
+}
+
+.filter {
+  width: 16%;
+}
+
+.title-book {
+  color: white;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 175px;
+}
+
+.space {
+  margin: 0 10px 30px 10px !important;
+}
+
+.author {
+  color: #929292;
+  float: left;
+}
+
+.since {
+  color: #929292;
+  float: right;
+}

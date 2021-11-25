@@ -6,8 +6,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 import AuthPage from "./pages/auth";
+import Home from "./pages/home";
+import SearchResult from "./pages/searchResult";
 
 import { API, setAuthToken } from "./config/api";
+import AddCollection from "./pages/addCollect";
 
 function App() {
   const [state, dispatch] = useContext(UserContext);
@@ -63,6 +66,9 @@ function App() {
     <>
       <Switch>
         <Route exact path="/" component={AuthPage} />
+        <Route exact path="/home" component={Home} />
+        <Route exact path="/search" component={SearchResult} />
+        <Route exact path="/add-collection" component={AddCollection} />
       </Switch>
     </>
   );
