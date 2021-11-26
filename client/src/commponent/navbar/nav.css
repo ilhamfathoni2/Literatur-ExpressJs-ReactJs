@@ -1,3 +1,23 @@
+a {
+  color: white !important;
+  text-decoration: none !important;
+  font-size: 18px !important;
+  margin: 5px 35px 0 0;
+}
+a:focus {
+  color: #af2e1c !important;
+}
+a:hover {
+  color: #af2e1c !important;
+}
+a:active {
+  color: #af2e1c !important;
+}
+
+.bg-darks {
+  background-color: #161616;
+}
+
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
@@ -5,6 +25,14 @@
   text-decoration: none;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out;
+}
+
+.profiles {
+  width: 50px;
+}
+
+.logout {
+  margin-right: 15px;
 }
 
 .nav-link:hover {
@@ -17,4 +45,21 @@
 
 .center-items {
   align-items: center !important;
+}
+
+.toggle-profile {
+  background: none;
+  border: none;
+}
+
+.toggle-profile:hover {
+  box-shadow: none !important;
+  background: none !important;
+  border: none !important;
+}
+
+.toggle-profile:focus {
+  box-shadow: none !important;
+  background: none !important;
+  border: none !important;
 }

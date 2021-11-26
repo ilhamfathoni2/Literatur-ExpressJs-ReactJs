@@ -14,6 +14,7 @@ import AddCollection from "./pages/addCollect";
 import AddLiteratur from "./pages/addLiteratur";
 import MyCollection from "./pages/myCollection";
 import Profile from "./pages/profile";
+import BookVerification from "./pages/verification";
 
 function App() {
   const [state, dispatch] = useContext(UserContext);
@@ -75,6 +76,7 @@ function App() {
         <Route exact path="/add-literatur" component={AddLiteratur} />
         <Route exact path="/my-collection" component={MyCollection} />
         <Route exact path="/profile" component={Profile} />
+        <Route exact path="/verification" component={BookVerification} />
       </Switch>
     </>
   );
