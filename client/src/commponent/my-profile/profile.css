@@ -1,0 +1,45 @@
+.color-dark {
+  background-color: #252525;
+  border-radius: 5px;
+  padding: 20px;
+  align-items: center;
+}
+
+.color-light {
+  color: white;
+  font-weight: 400;
+}
+
+.color-second {
+  color: #8a8c90;
+}
+
+.rows {
+  display: flex;
+  flex-direction: row;
+}
+
+.icon {
+  margin: 4px 15px 0 0;
+}
+
+.width-profile {
+  width: 200px;
+}
+
+.btn-change-profile {
+  background-color: #af2e1c !important;
+  border-color: #af2e1c !important;
+}
+
+.btn-change-profile:focus {
+  box-shadow: none !important;
+  background-color: #d43925 !important;
+  border-color: #d43925 !important;
+}
+
+.btn-change-profile:hover {
+  box-shadow: none !important;
+  background-color: #d43925 !important;
+  border-color: #d43925 !important;
+}

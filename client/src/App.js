@@ -13,6 +13,7 @@ import { API, setAuthToken } from "./config/api";
 import AddCollection from "./pages/addCollect";
 import AddLiteratur from "./pages/addLiteratur";
 import MyCollection from "./pages/myCollection";
+import Profile from "./pages/profile";
 
 function App() {
   const [state, dispatch] = useContext(UserContext);
@@ -73,6 +74,7 @@ function App() {
         <Route exact path="/add-collection" component={AddCollection} />
         <Route exact path="/add-literatur" component={AddLiteratur} />
         <Route exact path="/my-collection" component={MyCollection} />
+        <Route exact path="/profile" component={Profile} />
       </Switch>
     </>
   );
