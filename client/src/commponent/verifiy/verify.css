@@ -9,6 +9,18 @@
   padding: 8px 25px 8px 25px;
 }
 
+.btn-dangers:hover {
+  box-shadow: none !important;
+  background-color: #d30636;
+  border: none !important;
+}
+
+.btn-dangers:focus {
+  box-shadow: none !important;
+  background-color: #d30636;
+  border: none !important;
+}
+
 .btn-succes {
   background-color: #0acf83;
   color: white;
@@ -17,4 +29,16 @@
   border: none;
   border-radius: 5px;
   padding: 8px 25px 8px 25px;
+}
+
+.btn-succes:hover {
+  box-shadow: none !important;
+  background-color: #05a86a;
+  border: none !important;
+}
+
+.btn-succes:focus {
+  box-shadow: none !important;
+  background-color: #05a86a;
+  border: none !important;
 }

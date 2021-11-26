@@ -35,6 +35,10 @@ a:active {
   margin-right: 15px;
 }
 
+.text-logout {
+  color: #161616 !important;
+}
+
 .nav-link:hover {
   color: #af2e1c !important;
 }

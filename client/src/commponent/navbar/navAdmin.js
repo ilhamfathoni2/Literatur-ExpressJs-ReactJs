@@ -24,7 +24,7 @@ function NavAdmin() {
                 <Dropdown.Menu>
                   <Dropdown.Item>
                     <Image src={logout} className="logout" />
-                    <b>Logout</b>
+                    <b className="text-logout">Logout</b>
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>

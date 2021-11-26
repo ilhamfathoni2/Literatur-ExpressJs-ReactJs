@@ -27,7 +27,7 @@ function TableVerify() {
                   <td>1</td>
                   <td>Tess</td>
                   <td>Tess</td>
-                  <td>Tess</td>
+                  <td className="text-primary">Tess</td>
                   <td>Tess</td>
                   <td className="text-center">
                     <Button className="btn-dangers">Cancel</Button>
@@ -38,7 +38,7 @@ function TableVerify() {
                   <td>2</td>
                   <td>Tess</td>
                   <td>Tess</td>
-                  <td>Tess</td>
+                  <td className="text-primary">Tess</td>
                   <td>Tess</td>
                   <td className="text-center">
                     <Button className="btn-dangers">Cancel</Button>
