@@ -52,11 +52,20 @@ exports.register = async (req, res) => {
       role: userRole,
     });
 
+    const data = await user.findOne({
+      where: {
+        email: newUser.email,
+      },
+      attributes: {
+        exclude: ["createdAt", "updatedAt", "password"],
+      },
+    });
+
     // generate token
     const token = jwt.sign(
       {
         id: newUser.id,
-        fullName: newUser,
+        fullName: newUser.fullName,
         email: newUser.email,
         role: newUser.role,
       },
@@ -65,6 +74,7 @@ exports.register = async (req, res) => {
 
     res.status(200).send({
       status: "success",
+      data,
       token,
     });
   } catch (error) {
@@ -128,6 +138,7 @@ exports.login = async (req, res) => {
         status: "success",
         data: {
           email: userExist.email,
+          role: userExist.role,
           token,
         },
       });

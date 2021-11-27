@@ -7,6 +7,13 @@ const initialState = {
   user: {},
 };
 
+const forLocal = {
+  email: "",
+  role: "",
+};
+
+const userOf = JSON.stringify(forLocal);
+
 const reducer = (state, action) => {
   const { type, payload } = action;
 
@@ -21,6 +28,7 @@ const reducer = (state, action) => {
     case "AUTH_ERROR":
     case "LOGOUT":
       localStorage.removeItem("token");
+      localStorage.setItem("users", userOf);
       return {
         isLogin: false,
         user: {},

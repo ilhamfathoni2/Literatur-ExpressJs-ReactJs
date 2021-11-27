@@ -1,6 +1,5 @@
 import React from "react";
 import { Container, Button, Table, Card } from "react-bootstrap";
-import icon from "../../src-assets/btn-search.png";
 
 import "./verify.css";
 
@@ -14,7 +13,7 @@ function TableVerify() {
             <Table hover>
               <thead>
                 <tr>
-                  <th>No</th>
+                  <th className="text-center">No</th>
                   <th>Users or Author</th>
                   <th>ISBN</th>
                   <th>Literatur</th>
@@ -24,7 +23,7 @@ function TableVerify() {
               </thead>
               <tbody>
                 <tr>
-                  <td>1</td>
+                  <td className="text-center">1</td>
                   <td>Tess</td>
                   <td>Tess</td>
                   <td className="text-primary">Tess</td>
@@ -35,7 +34,7 @@ function TableVerify() {
                   </td>
                 </tr>
                 <tr>
-                  <td>2</td>
+                  <td className="text-center">2</td>
                   <td>Tess</td>
                   <td>Tess</td>
                   <td className="text-primary">Tess</td>

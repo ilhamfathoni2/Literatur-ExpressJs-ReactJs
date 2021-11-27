@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Container, Nav, Image } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { UserContext } from "../../context/userContext";
 import Logo from "../../src-assets/Logo.png";
 
 import "./nav.css";
 
 function Navbar() {
+  const history = useHistory();
+
+  const [, dispatch] = useContext(UserContext);
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+
+    dispatch({
+      type: "LOGOUT",
+    });
+    history.push("/");
+  };
+
   return (
     <>
       <Container>
@@ -20,8 +34,8 @@ function Navbar() {
             <Nav.Item>
               <Link to="/add-literatur">Add Literature</Link>
             </Nav.Item>
-            <Nav.Item>
-              <Link to="/">Logout</Link>
+            <Nav.Item onClick={handleLogout}>
+              <h6 className="nav-logout">Logout</h6>
             </Nav.Item>
           </div>
           <Nav.Item className="d-flex justify-content-end">

@@ -1,13 +1,17 @@
-import React, { useState } from "react";
-import { Container, Modal, Button, Form, Image } from "react-bootstrap";
+import React, { useState, useContext } from "react";
+import { Container, Modal, Button, Form, Image, Alert } from "react-bootstrap";
+import { UserContext } from "../context/userContext";
+import { useHistory } from "react-router";
+import { API } from "../config/api";
 
 import "./authpage.css";
 import books from "../src-assets/books.png";
 import logo from "../src-assets/Logo.png";
 
 function AuthPage() {
-  const title = "Home";
-  document.title = "Literatur | " + title;
+  document.title = "Literatur";
+
+  let history = useHistory();
 
   const [shows, setShows] = useState(false);
   const [show, setShow] = useState(false);
@@ -26,6 +30,153 @@ function AuthPage() {
   const openLogin = () => {
     setShow(false);
     setShows(true);
+  };
+
+  const [, dispatch] = useContext(UserContext);
+
+  const [message, setMessage] = useState(null);
+  const [form, setForm] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    phone: "",
+    address: "",
+    gender: "",
+  });
+
+  const { fullName, email, password, phone, address, gender } = form;
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+
+      const body = JSON.stringify(form);
+
+      const response = await API.post("/register", body, config);
+
+      // Notification
+      if (response.data.status === "success") {
+        dispatch({
+          type: "LOGIN_SUCCESS",
+          payload: response.data,
+        });
+
+        let userData = JSON.stringify(response.data.data);
+        localStorage.setItem("users", userData);
+
+        if (response.data.role === "admin") {
+          history.push("/verification");
+        } else {
+          history.push("/home");
+        }
+
+        const alert = (
+          <Alert variant="success" className="py-1">
+            Success
+          </Alert>
+        );
+        setMessage(alert);
+        setForm({
+          fullName: "",
+          email: "",
+          password: "",
+          phone: "",
+          address: "",
+          gender: "",
+        });
+      } else {
+        const alert = (
+          <Alert variant="danger" className="py-1">
+            Failed
+          </Alert>
+        );
+        setMessage(alert);
+      }
+    } catch (error) {
+      const alert = (
+        <Alert variant="danger" className="py-1">
+          Failed
+        </Alert>
+      );
+      setMessage(alert);
+      console.log(error);
+    }
+  };
+
+  const [formLogin, setFormLogin] = useState({
+    emails: "",
+    passwords: "",
+  });
+
+  const signIn = {
+    email: formLogin.emails,
+    password: formLogin.passwords,
+  };
+
+  const handleChanges = (e) => {
+    setFormLogin({
+      ...formLogin,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleLogin = async (e) => {
+    try {
+      e.preventDefault();
+
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+
+      const body = JSON.stringify(signIn);
+
+      const response = await API.post("/login", body, config);
+
+      if (response.status === 200) {
+        dispatch({
+          type: "LOGIN_SUCCESS",
+          payload: response.data.data,
+        });
+
+        let userData = JSON.stringify(response.data.data);
+        localStorage.setItem("users", userData);
+
+        if (response.data.data.role === "admin") {
+          history.push("/verification");
+        } else {
+          history.push("/home");
+        }
+
+        const alert = (
+          <Alert variant="success" className="py-1">
+            Login success
+          </Alert>
+        );
+        setMessage(alert);
+      }
+    } catch (error) {
+      const alert = (
+        <Alert variant="danger" className="py-1">
+          Login failed
+        </Alert>
+      );
+      setMessage(alert);
+    }
   };
 
   return (
@@ -48,11 +199,15 @@ function AuthPage() {
                 <Modal.Body className="bg-blacks">
                   <Container>
                     <h4 className="title-sign-up mb-5 mt-4">Sign Up</h4>
-                    <Form>
+                    {message && message}
+                    <Form onSubmit={handleSubmit}>
                       <Form.Group className="mb-3 mt-2">
                         <Form.Control
                           type="email"
                           placeholder="Email"
+                          value={email}
+                          name="email"
+                          onChange={handleChange}
                           className="form-self"
                         />
                       </Form.Group>
@@ -60,6 +215,9 @@ function AuthPage() {
                         <Form.Control
                           type="password"
                           placeholder="Password"
+                          value={password}
+                          name="password"
+                          onChange={handleChange}
                           className="form-self"
                         />
                       </Form.Group>
@@ -67,12 +225,18 @@ function AuthPage() {
                         <Form.Control
                           type="text"
                           placeholder="Full Name"
+                          value={fullName}
+                          name="fullName"
+                          onChange={handleChange}
                           className="form-self"
                         />
                       </Form.Group>
                       <Form.Select
                         className="form-self-black mb-3"
                         aria-label="Default select example"
+                        value={gender}
+                        name="gender"
+                        onChange={handleChange}
                       >
                         <option>Gender</option>
                         <option value="Male">Male</option>
@@ -82,6 +246,9 @@ function AuthPage() {
                         <Form.Control
                           type="number"
                           placeholder="Phone"
+                          value={phone}
+                          name="phone"
+                          onChange={handleChange}
                           className="form-self"
                         />
                       </Form.Group>
@@ -89,6 +256,9 @@ function AuthPage() {
                         <Form.Control
                           type="text"
                           placeholder="Address"
+                          value={address}
+                          name="address"
+                          onChange={handleChange}
                           className="form-self"
                         />
                       </Form.Group>
@@ -114,11 +284,14 @@ function AuthPage() {
                 <Modal.Body className="bg-blacks">
                   <Container>
                     <h4 className="title-sign-up mb-5 mt-4">Sign In</h4>
-                    <Form>
+                    <Form onSubmit={handleLogin}>
                       <Form.Group className="mb-3 mt-2">
                         <Form.Control
                           type="email"
                           placeholder="Email"
+                          value={formLogin.emails}
+                          name="emails"
+                          onChange={handleChanges}
                           className="form-self"
                         />
                       </Form.Group>
@@ -126,6 +299,9 @@ function AuthPage() {
                         <Form.Control
                           type="password"
                           placeholder="Password"
+                          value={formLogin.passwords}
+                          name="passwords"
+                          onChange={handleChanges}
                           className="form-self"
                         />
                       </Form.Group>
@@ -134,7 +310,7 @@ function AuthPage() {
                         Sign In
                       </Button>
                       <p className="foot">
-                        Don't have an account ? Klik{" "}
+                        Don't have an account ? Klik
                         <b className="klik" onClick={openSignUp}>
                           Here
                         </b>

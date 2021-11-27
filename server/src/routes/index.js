@@ -35,7 +35,7 @@ router.get("/users", auth, adminOnly, getAllUsers);
 router.patch("/users/:id", auth, avatarFile("avatar"), updateUser);
 router.delete("/users/:id", auth, adminOnly, deleteUser);
 
-router.get("/check-auth", auth, checkAuth);
+router.get("/check-auth", checkAuth);
 router.get("/user-data", auth, user);
 // Close Auth
 

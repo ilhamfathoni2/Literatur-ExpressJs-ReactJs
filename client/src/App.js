@@ -9,50 +9,52 @@ import AuthPage from "./pages/auth";
 import Home from "./pages/home";
 import SearchResult from "./pages/searchResult";
 
-import { API, setAuthToken } from "./config/api";
 import AddCollection from "./pages/addCollect";
 import AddLiteratur from "./pages/addLiteratur";
 import MyCollection from "./pages/myCollection";
 import Profile from "./pages/profile";
 import BookVerification from "./pages/verification";
 
+import { API, setAuthToken } from "./config/api";
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
+
+function PrivateRoute({ children, ...rest }) {
+  let history = useHistory();
+  let usersData = JSON.parse(localStorage.getItem("users"));
+
+  return (
+    <Route
+      {...rest}
+      render={() => {
+        if (usersData.role === "admin") {
+          return children;
+        } else {
+          return history.push("/home");
+        }
+      }}
+    />
+  );
+}
+
 function App() {
-  const [state, dispatch] = useContext(UserContext);
-
-  useEffect(() => {
-    if (localStorage.token) {
-      setAuthToken(localStorage.token);
-    }
-
-    // // Redirect Auth
-    // if (state.isLogin === false) {
-    //   history.push("/auth");
-    // } else {
-    //   if (state.user.status === "admin") {
-    //     history.push("/product-admin");
-    //   } else if (state.user.status === "customer") {
-    //     history.push("/");
-    //   }
-    // }
-  }, [state]);
+  const [, dispatch] = useContext(UserContext);
 
   const checkUser = async () => {
     try {
       const response = await API.get("/check-auth");
 
-      // If the token incorrect
       if (response.status === 404) {
-        return dispatch({
+        dispatch({
           type: "AUTH_ERROR",
         });
       }
 
-      // Get user data
-      let payload = response.data.data.user;
-      // Get token from local storage
+      let payload = response.data;
       payload.token = localStorage.token;
 
-      // Send data to useContext
       dispatch({
         type: "USER_SUCCESS",
         payload,
@@ -76,7 +78,9 @@ function App() {
         <Route exact path="/add-literatur" component={AddLiteratur} />
         <Route exact path="/my-collection" component={MyCollection} />
         <Route exact path="/profile" component={Profile} />
-        <Route exact path="/verification" component={BookVerification} />
+        <PrivateRoute>
+          <Route exact path="/verification" component={BookVerification} />
+        </PrivateRoute>
       </Switch>
     </>
   );

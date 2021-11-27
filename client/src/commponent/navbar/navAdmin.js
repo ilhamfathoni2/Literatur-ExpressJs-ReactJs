@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Container, Nav, Image, Dropdown } from "react-bootstrap";
+import { UserContext } from "../../context/userContext";
+import { useHistory } from "react-router";
 import Logo from "../../src-assets/Logo.png";
 import profile from "../../src-assets/profile.png";
 import logout from "../../src-assets/logout.png";
@@ -7,6 +9,19 @@ import logout from "../../src-assets/logout.png";
 import "./nav.css";
 
 function NavAdmin() {
+  const history = useHistory();
+
+  const [, dispatch] = useContext(UserContext);
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    history.push("/");
+
+    dispatch({
+      type: "LOGOUT",
+    });
+  };
+
   return (
     <>
       <div className="bg-darks">
@@ -22,7 +37,7 @@ function NavAdmin() {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Dropdown.Item>
+                  <Dropdown.Item onClick={handleLogout}>
                     <Image src={logout} className="logout" />
                     <b className="text-logout">Logout</b>
                   </Dropdown.Item>
