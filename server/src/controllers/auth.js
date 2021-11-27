@@ -277,6 +277,7 @@ exports.user = async (req, res) => {
           address: dataUser.address,
           gender: dataUser.gender,
           role: dataUser.role,
+          avatar: pathFile + dataUser.avatar,
         },
       ],
     });

@@ -190,6 +190,57 @@ exports.getLiteraturId = async (req, res) => {
   }
 };
 
+exports.myLiterature = async (req, res) => {
+  try {
+    const data = await literatur.findAll({
+      where: {
+        userId: req.user.id,
+      },
+      include: [
+        {
+          model: user,
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "password"],
+          },
+        },
+      ],
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
+    });
+
+    const literaturParams = data.map((item) => ({
+      id: item.id,
+      title: item.title,
+      userId: item.userId,
+      fullName: item.user.fullName,
+      email: item.user.email,
+      phone: item.user.phone,
+      address: item.user.address,
+      gender: item.user.gender,
+      role: item.user.role,
+      publication_date: item.publication_date,
+      pages: item.pages,
+      ISBN: item.ISBN,
+      author: item.author,
+      attache: pathFile + item.attache,
+      about: item.about,
+      status: item.status,
+    }));
+
+    res.send({
+      status: "success",
+      data: literaturParams,
+    });
+  } catch (error) {
+    console.log(error);
+    res.send({
+      status: "failed",
+      message: "Server Error",
+    });
+  }
+};
+
 exports.editLiteratur = async (req, res) => {
   try {
     const { id } = req.params;
