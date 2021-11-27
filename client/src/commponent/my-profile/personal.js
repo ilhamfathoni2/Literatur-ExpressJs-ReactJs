@@ -1,94 +1,123 @@
-import React, { useState, useEffect } from "react";
-
-import { Container, Image, Button } from "react-bootstrap";
+import React, { useState } from "react";
+import { useHistory } from "react-router";
+import { Container, Image, Button, Form } from "react-bootstrap";
 
 import email from "../../src-assets/email.png";
 import gender from "../../src-assets/Gender.png";
 import phone from "../../src-assets/phone.png";
 import map from "../../src-assets/map.png";
+import imgdef from "../../src-assets/Avatar.png";
 
 import "./profile.css";
 
 import { API } from "../../config/api";
 
-function Personal() {
-  const [profile, setProfile] = useState([]);
+function Personal({ item }) {
+  let history = useHistory();
+  const [preview, setPreview] = useState();
 
-  const getProfle = async () => {
+  const [form, setForm] = useState({
+    avatar: "",
+  });
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]:
+        e.target.type === "file" ? e.target.files : e.target.value,
+    });
+
+    if (e.target.type === "file") {
+      setPreview(e.target.files);
+    }
+  };
+
+  const updateAvatar = async (e) => {
+    e.preventDefault();
     try {
-      const response = await API.get("/user-data");
+      const config = {
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      };
 
-      setProfile(response.data.data);
+      const body = new FormData();
+      body.set("avatar", form.avatar[0]);
+
+      await API.patch(`/users/${item.id}`, body, config);
     } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(() => {
-    getProfle();
-  }, []);
-
   return (
     <>
-      {profile.length !== 0 ? (
-        <div>
-          {profile.map((item, index) => (
-            <Container>
-              <h1 className="title-litera mt-5 mb-4">Profile</h1>
-              <div className="d-flex flex-wrap justify-content-between color-dark">
-                <div className="d-flex flex-column">
-                  <div className="rows">
-                    <div className="icon">
-                      <Image src={email} />
-                    </div>
-                    <div className="details">
-                      <h6 className="color-light mb-1">{item.fullName}</h6>
-                      <p className="color-second mt-0">Email</p>
-                    </div>
-                  </div>
-                  <div className="rows">
-                    <div className="icon">
-                      <Image src={gender} />
-                    </div>
-                    <div className="details">
-                      <h6 className="color-light mb-1">{item.gender}</h6>
-                      <p className="color-second mt-0">Gender</p>
-                    </div>
-                  </div>
-                  <div className="rows">
-                    <div className="icon">
-                      <Image src={phone} />
-                    </div>
-                    <div className="details">
-                      <h6 className="color-light mb-1">{item.phone}</h6>
-                      <p className="color-second mt-0">Phone</p>
-                    </div>
-                  </div>
-                  <div className="rows">
-                    <div className="icon">
-                      <Image src={map} />
-                    </div>
-                    <div className="details">
-                      <h6 className="color-light mb-1">{item.address}</h6>
-                      <p className="color-second mt-0">Address</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="d-flex flex-column">
-                  <Image src={item.avatar} className="mb-3 width-profile" />
-                  <Button className="btn-change-profile">
-                    Change Photo Profile
-                  </Button>
-                </div>
+      <Container>
+        <h1 className="title-litera mt-5 mb-4">Profile</h1>
+        <div className="d-flex flex-wrap justify-content-between color-dark">
+          <div className="d-flex flex-column">
+            <div className="rows">
+              <div className="icon">
+                <Image src={email} className="item-icon" />
               </div>
-            </Container>
-          ))}
+              <div className="details">
+                <h6 className="color-light mb-1">{item.fullName}</h6>
+                <p className="color-second mt-0">Email</p>
+              </div>
+            </div>
+            <div className="rows">
+              <div className="icon">
+                <Image src={gender} className="item-icon" />
+              </div>
+              <div className="details">
+                <h6 className="color-light mb-1">{item.gender}</h6>
+                <p className="color-second mt-0">Gender</p>
+              </div>
+            </div>
+            <div className="rows">
+              <div className="icon">
+                <Image src={phone} className="item-icon" />
+              </div>
+              <div className="details">
+                <h6 className="color-light mb-1">{item.phone}</h6>
+                <p className="color-second mt-0">Phone</p>
+              </div>
+            </div>
+            <div className="rows">
+              <div className="icon">
+                <Image src={map} className="item-icon" />
+              </div>
+              <div className="details">
+                <h6 className="color-light mb-1">{item.address}</h6>
+                <p className="color-second mt-0">Address</p>
+              </div>
+            </div>
+          </div>
+          <Form onSubmit={updateAvatar}>
+            <div className="d-flex flex-column">
+              <label htmlFor="files" className="pointerss">
+                {preview ? (
+                  <div>
+                    <Image className="mb-3 width-profile" src={imgdef} />
+                  </div>
+                ) : (
+                  <Image src={item.avatar} className="mb-3 width-profile" />
+                )}
+              </label>
+              <input
+                type="file"
+                id="files"
+                hidden
+                name="avatar"
+                onChange={handleChange}
+              />
+              <Button type="submit" className="btn-change-profile">
+                Change Photo Profile
+              </Button>
+            </div>
+          </Form>
         </div>
-      ) : (
-        <div className="text-center pt-5">
-          <div className="mt-3">No data</div>
-        </div>
-      )}
+      </Container>
     </>
   );
 }

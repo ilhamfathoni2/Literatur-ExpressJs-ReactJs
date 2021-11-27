@@ -40,7 +40,13 @@ function PrivateRoute({ children, ...rest }) {
 }
 
 function App() {
-  const [, dispatch] = useContext(UserContext);
+  const [state, dispatch] = useContext(UserContext);
+
+  useEffect(() => {
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
+  }, [state]);
 
   const checkUser = async () => {
     try {
@@ -52,7 +58,7 @@ function App() {
         });
       }
 
-      let payload = response.data;
+      let payload = response.data.data;
       payload.token = localStorage.token;
 
       dispatch({
@@ -66,7 +72,7 @@ function App() {
 
   useEffect(() => {
     checkUser();
-  }, []);
+  }, [state]);
 
   return (
     <>

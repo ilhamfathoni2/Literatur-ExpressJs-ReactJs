@@ -1,5 +1,6 @@
 const { user, literatur, book_mark } = require("../../models");
 const Joi = require("joi");
+const { Op } = require("sequelize");
 const pathFile = "http://localhost:5000/uploads/";
 
 exports.addLiteratur = async (req, res) => {
@@ -85,6 +86,55 @@ exports.addLiteratur = async (req, res) => {
     console.log(error);
     res.status(500).send({
       status: "faileds",
+      message: "Server Error",
+    });
+  }
+};
+
+exports.searchLiteratur = async (req, res) => {
+  try {
+    const data = await literatur.findAll({
+      where: { title: { [Op.like]: `%${req.body.title}%` } },
+      include: [
+        {
+          model: user,
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "password"],
+          },
+        },
+      ],
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
+    });
+
+    const allData = data.map((item) => ({
+      id: item.id,
+      title: item.title,
+      userId: item.userId,
+      fullName: item.user.fullName,
+      email: item.user.email,
+      phone: item.user.phone,
+      address: item.user.address,
+      gender: item.user.gender,
+      role: item.user.role,
+      publication_date: item.publication_date,
+      pages: item.pages,
+      ISBN: item.ISBN,
+      author: item.author,
+      attache: pathFile + item.attache,
+      about: item.about,
+      status: item.status,
+    }));
+
+    res.send({
+      status: "success",
+      data: allData,
+    });
+  } catch (error) {
+    console.log(error);
+    res.send({
+      status: "failed",
       message: "Server Error",
     });
   }
