@@ -57,7 +57,7 @@ function Profile() {
         <div>
           <Container>
             <h1 className="title-litera mt-5 mb-4">My Literature</h1>
-            <div className="d-flex flex-wrap justify-content-between">
+            <div className="d-flex flex-wrap justify-content-start">
               {literatur.map((item, index) => (
                 <MyLiteratures item={item} key={index} />
               ))}

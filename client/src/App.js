@@ -13,8 +13,10 @@ import AddLiteratur from "./pages/addLiteratur";
 import MyCollection from "./pages/myCollection";
 import Profile from "./pages/profile";
 import BookVerification from "./pages/verification";
+import DetailMyLiteratures from "./pages/detailMyLiteratur";
 
 import { API, setAuthToken } from "./config/api";
+import DeetailCollect from "./pages/detailCollect";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -78,8 +80,10 @@ function App() {
       <Switch>
         <Route exact path="/" component={AuthPage} />
         <Route exact path="/home" component={Home} />
-        <Route exact path="/add-collection" component={AddCollection} />
+        <Route exact path="/add-collection/:id" component={AddCollection} />
         <Route exact path="/add-literatur" component={AddLiteratur} />
+        <Route exact path="/my-literatur/:id" component={DetailMyLiteratures} />
+        <Route exact path="/detail-collect/:id" component={DeetailCollect} />
         <Route exact path="/my-collection" component={MyCollection} />
         <Route exact path="/profile" component={Profile} />
         <PrivateRoute>

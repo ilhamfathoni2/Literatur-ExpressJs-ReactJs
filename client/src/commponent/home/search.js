@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import {
   Container,
   Image,
@@ -16,6 +17,7 @@ import "./home.css";
 import moment from "moment";
 
 import { API } from "../../config/api";
+import { Link } from "react-router-dom";
 
 function Search() {
   const [message, setMessage] = useState(null);
@@ -93,13 +95,13 @@ function Search() {
                     setsearchTitle(event.target.value);
                   }}
                 >
-                  {result.map((item, index) => (
-                    <option
-                      value={moment(item.publication_date).format("YYYY")}
-                    >
-                      {moment(item.publication_date).format("YYYY")}
-                    </option>
-                  ))}
+                  <option value="">Anytime</option>
+                  <option value="2017">2017</option>
+                  <option value="2018">2018</option>
+                  <option value="2019">2019</option>
+                  <option value="2018">2018</option>
+                  <option value="2020">2020</option>
+                  <option value="2021">2021</option>
                 </Form.Select>
               </div>
               <div className="d-flex flex-wrap justify-content-end">
@@ -118,11 +120,13 @@ function Search() {
                   .map((item, index) => (
                     <div className="space">
                       <iframe src={item.attache} className="view-pdf" />
-                      <h5 className="title-book mt-3">{item.title}</h5>
-                      <p className="author">{item.author}</p>
-                      <p className="since">
-                        {moment(item.publication_date).format("YYYY")}
-                      </p>
+                      <Link to={`/add-collection/${item.id}`}>
+                        <h5 className="title-book mt-3">{item.title}</h5>
+                        <p className="author">{item.author}</p>
+                        <p className="since">
+                          {moment(item.publication_date).format("YYYY")}
+                        </p>
+                      </Link>
                     </div>
                   ))}
               </div>

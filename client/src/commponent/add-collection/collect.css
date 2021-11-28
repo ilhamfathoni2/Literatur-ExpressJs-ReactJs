@@ -1,5 +1,7 @@
 .img-view {
   width: 380px !important;
+  height: 480px !important;
+  border-radius: 10px;
 }
 
 .title-desc {

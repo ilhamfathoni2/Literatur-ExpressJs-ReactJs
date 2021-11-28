@@ -3,6 +3,7 @@ const Joi = require("joi");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const pathFile = "http://localhost:5000/uploads/";
+const fs = require("fs");
 
 exports.register = async (req, res) => {
   const schema = Joi.object({
@@ -311,6 +312,9 @@ exports.updateUser = async (req, res) => {
         exclude: ["createdAt", "updatedAt", "password"],
       },
     });
+
+    fs.unlinkSync("../../uploads/" + data.avatar);
+
     res.send({
       status: "success",
       message: "Update success",

@@ -8,6 +8,7 @@ const initialState = {
 };
 
 const forLocal = {
+  isLogin: false,
   email: "",
   role: "",
 };

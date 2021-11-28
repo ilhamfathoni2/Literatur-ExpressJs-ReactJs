@@ -1,28 +1,8 @@
 const { user, literatur, book_mark } = require("../../models");
-const Joi = require("joi");
 const { Op } = require("sequelize");
 const pathFile = "http://localhost:5000/uploads/";
 
 exports.addLiteratur = async (req, res) => {
-  //   const schema = Joi.object({
-  //     title: Joi.string().required(),
-  //     userId: Joi.number().required(),
-  //     publication_date: Joi.string().required(),
-  //     pages: Joi.number().required(),
-  //     ISBN: Joi.string().required(),
-  //     author: Joi.string().required(),
-  //     about: Joi.string().required(),
-  //   });
-
-  //   const { error } = schema.validate(req.body);
-
-  //   if (error)
-  //     return res.status(400).send({
-  //       error: {
-  //         message: error.details[0].message,
-  //       },
-  //     });
-
   try {
     const { idUser } = req.user;
 
@@ -96,6 +76,7 @@ exports.searchLiteratur = async (req, res) => {
     const data = await literatur.findAll({
       where: {
         title: { [Op.like]: `%${req.body.title}%` },
+        status: "Approve",
       },
       include: [
         {
@@ -232,6 +213,44 @@ exports.getLiteraturId = async (req, res) => {
     res.send({
       status: "success",
       data: literaturParams,
+    });
+  } catch (error) {
+    console.log(error);
+    res.send({
+      status: "failed",
+      message: "Server Error",
+    });
+  }
+};
+
+exports.downloadPDF = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = await literatur.findAll({
+      where: {
+        id,
+      },
+      include: [
+        {
+          model: user,
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "password"],
+          },
+        },
+      ],
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
+    });
+
+    const literaturParams = data.map((item) => ({
+      attache: item.attache,
+    }));
+
+    res.send({
+      status: "success",
+      data: literaturParams,
+      filePath,
     });
   } catch (error) {
     console.log(error);
@@ -440,6 +459,7 @@ exports.myCollections = async (req, res) => {
 
     const collections = data.map((item) => ({
       id: item.id,
+      titleId: item.titleId,
       title: item.dataLiteratur.title,
       userId: item.dataLiteratur.userId,
       fullName: item.dataUser.fullName,
