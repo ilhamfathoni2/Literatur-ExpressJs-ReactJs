@@ -14,7 +14,7 @@ import { API } from "../../config/api";
 
 function Personal({ item }) {
   let history = useHistory();
-  const [preview, setPreview] = useState();
+  const [preview, setPreview] = useState("");
 
   const [form, setForm] = useState({
     avatar: "",
@@ -33,7 +33,6 @@ function Personal({ item }) {
   };
 
   const updateAvatar = async (e) => {
-    e.preventDefault();
     try {
       const config = {
         headers: {
@@ -95,21 +94,13 @@ function Personal({ item }) {
           </div>
           <Form onSubmit={updateAvatar}>
             <div className="d-flex flex-column">
-              <label htmlFor="files" className="pointerss">
-                {preview ? (
-                  <div>
-                    <Image className="mb-3 width-profile" src={imgdef} />
-                  </div>
-                ) : (
-                  <Image src={item.avatar} className="mb-3 width-profile" />
-                )}
-              </label>
+              <Image src={item.avatar} className="mb-3 width-profile" />
               <input
                 type="file"
                 id="files"
-                hidden
                 name="avatar"
                 onChange={handleChange}
+                className="upload-btn form-self-black"
               />
               <Button type="submit" className="btn-change-profile">
                 Change Photo Profile

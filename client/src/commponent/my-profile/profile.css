@@ -37,6 +37,12 @@
   width: 200px;
 }
 
+.upload-btn {
+  width: 200px;
+  margin: 20px 0;
+  border-radius: 5px;
+}
+
 .btn-change-profile {
   background-color: #af2e1c !important;
   border-color: #af2e1c !important;

@@ -65,9 +65,12 @@ function Profile() {
           </Container>
         </div>
       ) : (
-        <div className="text-center pt-5">
-          <div className="mt-3">No data</div>
-        </div>
+        <Container>
+          <h1 className="title-litera mt-5 mb-4">My Literature</h1>
+          <div className="text-center mb-5">
+            <h3 className="mt-3">No data</h3>
+          </div>
+        </Container>
       )}
     </>
   );

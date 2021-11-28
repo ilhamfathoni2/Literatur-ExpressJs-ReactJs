@@ -94,7 +94,9 @@ exports.addLiteratur = async (req, res) => {
 exports.searchLiteratur = async (req, res) => {
   try {
     const data = await literatur.findAll({
-      where: { title: { [Op.like]: `%${req.body.title}%` } },
+      where: {
+        title: { [Op.like]: `%${req.body.title}%` },
+      },
       include: [
         {
           model: user,

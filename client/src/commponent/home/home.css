@@ -2,6 +2,23 @@
   margin-top: 12%;
 }
 
+.width-mins {
+  width: 700px;
+}
+
+.view-pdf {
+  width: 180px;
+  height: 280px;
+  border-radius: 5px;
+}
+
+.btn-danger {
+  color: #fff;
+  background-color: #af2e1c !important;
+  border-color: #af2e1c !important;
+  margin-left: 15px !important;
+}
+
 .width-min {
   width: 60%;
 }
@@ -28,4 +45,36 @@
   box-shadow: none !important;
   border: 2px solid #bcbcbc !important;
   background: rgba(210, 210, 210, 0.25);
+}
+
+.anytime {
+  font-size: 18px;
+  color: #af2e1c;
+  font-weight: 500;
+  margin-left: 16px;
+}
+
+.filter {
+  width: 16%;
+}
+
+.title-book {
+  color: white;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 175px;
+}
+
+.space {
+  margin: 0 10px 30px 10px !important;
+}
+
+.author {
+  color: #929292;
+  float: left;
+}
+
+.since {
+  color: #929292;
+  float: right;
 }

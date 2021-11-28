@@ -26,6 +26,9 @@ function Navbar() {
         <Nav className="mt-4 d-flex justify-content-between center-items">
           <div className="d-flex justify-content-start">
             <Nav.Item>
+              <Link to="/home">Home</Link>
+            </Nav.Item>
+            <Nav.Item>
               <Link to="/profile">Profile</Link>
             </Nav.Item>
             <Nav.Item>

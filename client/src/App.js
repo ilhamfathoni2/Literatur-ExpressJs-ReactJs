@@ -7,7 +7,6 @@ import "./App.css";
 
 import AuthPage from "./pages/auth";
 import Home from "./pages/home";
-import SearchResult from "./pages/searchResult";
 
 import AddCollection from "./pages/addCollect";
 import AddLiteratur from "./pages/addLiteratur";
@@ -79,7 +78,6 @@ function App() {
       <Switch>
         <Route exact path="/" component={AuthPage} />
         <Route exact path="/home" component={Home} />
-        <Route exact path="/search" component={SearchResult} />
         <Route exact path="/add-collection" component={AddCollection} />
         <Route exact path="/add-literatur" component={AddLiteratur} />
         <Route exact path="/my-collection" component={MyCollection} />
