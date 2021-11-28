@@ -8,7 +8,7 @@ import { useHistory } from "react-router";
 import iconApprove from "../../src-assets/approve.png";
 import iconCancel from "../../src-assets/cancel.png";
 
-function TableVerify({ item }) {
+function TableVerify(props) {
   let history = useHistory();
 
   const approve = "Approve";
@@ -32,7 +32,8 @@ function TableVerify({ item }) {
 
       const body = JSON.stringify(updateApprove);
 
-      await API.patch(`/literatur/${item.id}`, body, config);
+      await API.patch(`/literatur/${props.item.id}`, body, config);
+
       history.go();
     } catch (error) {
       console.log(error);
@@ -49,7 +50,7 @@ function TableVerify({ item }) {
 
       const body = JSON.stringify(updateCancel);
 
-      await API.patch(`/literatur/${item.id}`, body, config);
+      await API.patch(`/literatur/${props.item.id}`, body, config);
       history.go();
     } catch (error) {
       console.log(error);
@@ -59,33 +60,33 @@ function TableVerify({ item }) {
   return (
     <>
       <tr>
-        <td className="text-center">1</td>
-        <td>{item.author}</td>
-        <td>{item.ISBN}</td>
-        <td className="text-primary">{item.title}</td>
+        <td className="text-center">{props.num + 1}</td>
+        <td>{props.item.author}</td>
+        <td>{props.item.ISBN}</td>
+        <td className="text-primary">{props.item.title}</td>
         {(() => {
-          if (item.status === "Waiting Approve") {
+          if (props.item.status === "Waiting Approve") {
             return (
               <td className="text-warning">
-                <b>{item.status}</b>
+                <b>{props.item.status}</b>
               </td>
             );
-          } else if (item.status === "Cancel") {
+          } else if (props.item.status === "Cancel") {
             return (
               <td className="text-danger">
-                <b>{item.status}</b>
+                <b>{props.item.status}</b>
               </td>
             );
           } else {
             return (
               <td className="text-success">
-                <b>{item.status}</b>
+                <b>{props.item.status}</b>
               </td>
             );
           }
         })()}
         {(() => {
-          if (item.status === "Waiting Approve") {
+          if (props.item.status === "Waiting Approve") {
             return (
               <td className="text-center">
                 <Button onClick={updateSCancel} className="btn-dangers">
@@ -96,7 +97,7 @@ function TableVerify({ item }) {
                 </Button>
               </td>
             );
-          } else if (item.status === "Cancel") {
+          } else if (props.item.status === "Cancel") {
             return (
               <td className="text-center text-danger">
                 <Image src={iconCancel} />

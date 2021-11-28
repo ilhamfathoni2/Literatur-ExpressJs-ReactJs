@@ -35,7 +35,7 @@ function BookVerification() {
               <Table hover>
                 <thead>
                   <tr>
-                    <th className="text-center">No</th>
+                    <th className="text-center">No.</th>
                     <th>Users or Author</th>
                     <th>ISBN</th>
                     <th>Literatur</th>
@@ -45,7 +45,7 @@ function BookVerification() {
                 </thead>
                 <tbody>
                   {literatur.map((item, index) => (
-                    <TableVerify item={item} key={index} />
+                    <TableVerify item={item} num={index} key={index} />
                   ))}
                 </tbody>
               </Table>
