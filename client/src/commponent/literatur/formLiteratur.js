@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Container, Image, Button, Form, Alert } from "react-bootstrap";
-
+import { Container, Button, Form, Alert } from "react-bootstrap";
+import { useHistory } from "react-router";
 import "./literatur.css";
 import { API } from "../../config/api";
 
 function FormLiteratur() {
   const [message, setMessage] = useState(null);
+
+  let history = useHistory();
 
   const [form, setForm] = useState({
     title: "",
@@ -54,11 +56,12 @@ function FormLiteratur() {
           </Alert>
         );
         setMessage(alert);
+        history.push("/profile");
       }
     } catch (error) {
       const alert = (
         <Alert variant="danger" className="py-1">
-          Failed
+          Failed add new literatur
         </Alert>
       );
       setMessage(alert);

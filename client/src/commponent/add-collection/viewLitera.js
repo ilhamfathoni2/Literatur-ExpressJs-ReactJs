@@ -89,7 +89,7 @@ function PreviewAddCollect({ item }) {
             <h4 className="text-danger mb-3">ISBN</h4>
             <h5 className="paragraf mb-4">{item.ISBN}</h5>
             <Button
-              onClick={() => handleDownload(item.attache, "literatur")}
+              onClick={() => handleDownload(item.attache, item.title)}
               className="download"
             >
               Download <Image src={iconDownload} className="icons" />

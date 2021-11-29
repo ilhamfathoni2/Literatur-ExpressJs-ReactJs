@@ -63,7 +63,11 @@ function TableVerify(props) {
         <td className="text-center">{props.num + 1}.</td>
         <td>{props.item.author}</td>
         <td>{props.item.ISBN}</td>
-        <td className="text-primary">{props.item.title}</td>
+        <td className="text-primary">
+          <a className="text-primary" href={props.item.attache}>
+            {props.item.title}
+          </a>
+        </td>
         {(() => {
           if (props.item.status === "Waiting Approve") {
             return (

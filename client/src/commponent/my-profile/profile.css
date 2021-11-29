@@ -35,6 +35,15 @@
 
 .width-profile {
   width: 200px;
+  height: 200px;
+  border-radius: 5px;
+}
+
+.width-profiles {
+  width: 200px;
+  height: 200px;
+  background-color: #8a8c90;
+  border-radius: 5px;
 }
 
 .upload-btn {

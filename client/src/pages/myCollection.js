@@ -39,9 +39,10 @@ function MyCollection() {
           </Container>
         </div>
       ) : (
-        <div className="text-center pt-5">
-          <div className="mt-3">No data</div>
-        </div>
+        <Container>
+          <h1 className="title-litera mt-5 mb-5">My Collection</h1>
+          <h4 className="text-center">No data</h4>
+        </Container>
       )}
     </>
   );

@@ -94,7 +94,20 @@ function Personal({ item }) {
           </div>
           <Form onSubmit={updateAvatar}>
             <div className="d-flex flex-column">
-              <Image src={item.avatar} className="mb-3 width-profile" />
+              {(() => {
+                if (preview) {
+                  return (
+                    <Image
+                      className="mb-3 width-profile"
+                      src={URL.createObjectURL(preview[0])}
+                    />
+                  );
+                } else {
+                  return (
+                    <Image src={item.avatar} className="mb-3 width-profile" />
+                  );
+                }
+              })()}
               <input
                 type="file"
                 id="files"
