@@ -225,44 +225,6 @@ exports.getLiteraturId = async (req, res) => {
   }
 };
 
-exports.downloadPDF = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const data = await literatur.findAll({
-      where: {
-        id,
-      },
-      include: [
-        {
-          model: user,
-          attributes: {
-            exclude: ["createdAt", "updatedAt", "password"],
-          },
-        },
-      ],
-      attributes: {
-        exclude: ["createdAt", "updatedAt"],
-      },
-    });
-
-    const literaturParams = data.map((item) => ({
-      attache: item.attache,
-    }));
-
-    res.send({
-      status: "success",
-      data: literaturParams,
-      filePath,
-    });
-  } catch (error) {
-    console.log(error);
-    res.send({
-      status: "failed",
-      message: "Server Error",
-    });
-  }
-};
-
 exports.myLiterature = async (req, res) => {
   try {
     const data = await literatur.findAll({

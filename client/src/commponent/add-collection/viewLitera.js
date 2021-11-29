@@ -42,6 +42,33 @@ function PreviewAddCollect({ item }) {
       setMessage(alert);
     }
   };
+
+  const handleDownload = async (fileURL, filename) => {
+    try {
+      await fetch(fileURL, {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+        },
+      })
+        .then((Response) => Response.blob())
+        .then((blop) => {
+          const url = window.URL.createObjectURL(new Blob([blop]));
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", `${filename}.pdf`);
+
+          document.body.appendChild(link);
+
+          link.click();
+
+          link.parentNode.removeChild(link);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <Container>
@@ -61,11 +88,12 @@ function PreviewAddCollect({ item }) {
             <h5 className="paragraf mb-4">{item.pages}</h5>
             <h4 className="text-danger mb-3">ISBN</h4>
             <h5 className="paragraf mb-4">{item.ISBN}</h5>
-            <a href={item.attache}>
-              <Button className="download">
-                Download <Image src={iconDownload} className="icons" />
-              </Button>
-            </a>
+            <Button
+              onClick={() => handleDownload(item.attache, "literatur")}
+              className="download"
+            >
+              Download <Image src={iconDownload} className="icons" />
+            </Button>
           </div>
           <div className="btn-collection">
             <Button onClick={handleSubmit} variant="danger">

@@ -41,12 +41,13 @@
 .download:focus {
   box-shadow: none !important;
   background-color: #af2e1c !important;
-  border: rgb(238, 75, 53) 3px solid !important;
+  border: none !important;
 }
 
 .download:hover {
   box-shadow: none !important;
   background-color: #c93623 !important;
+  border: none !important;
 }
 
 .paragraf {

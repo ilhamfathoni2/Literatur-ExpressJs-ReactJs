@@ -45,7 +45,6 @@ router.get("/user-data", auth, user);
 // Literatur
 router.get("/literatur", auth, getLiteraturs);
 router.get("/literatur/:id", auth, getLiteraturId);
-router.get("/download/:id", downloadPDF);
 router.patch("/literatur/:id", auth, editLiteratur);
 router.get("/my-literature", auth, myLiterature);
 router.delete("/literatur/:id", auth, deleteLiteratur);
