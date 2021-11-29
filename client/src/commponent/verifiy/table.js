@@ -60,7 +60,7 @@ function TableVerify(props) {
   return (
     <>
       <tr>
-        <td className="text-center">{props.num + 1}</td>
+        <td className="text-center">{props.num + 1}.</td>
         <td>{props.item.author}</td>
         <td>{props.item.ISBN}</td>
         <td className="text-primary">{props.item.title}</td>

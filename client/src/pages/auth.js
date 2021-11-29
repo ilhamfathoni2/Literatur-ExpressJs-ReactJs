@@ -310,7 +310,7 @@ function AuthPage() {
                         Sign In
                       </Button>
                       <p className="foot">
-                        Don't have an account ? Klik
+                        Don't have an account ? Klik{" "}
                         <b className="klik" onClick={openSignUp}>
                           Here
                         </b>

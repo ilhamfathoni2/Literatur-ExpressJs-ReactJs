@@ -1,4 +1,4 @@
-const { user, literatur, book_mark } = require("../../models");
+const { user, literatur, book_mark, sequelize } = require("../../models");
 const { Op } = require("sequelize");
 const pathFile = "http://localhost:5000/uploads/";
 
@@ -78,6 +78,7 @@ exports.searchLiteratur = async (req, res) => {
         title: { [Op.like]: `%${req.body.title}%` },
         status: "Approve",
       },
+      order: [["id", "DESC"]],
       include: [
         {
           model: user,
@@ -126,6 +127,7 @@ exports.searchLiteratur = async (req, res) => {
 exports.getLiteraturs = async (req, res) => {
   try {
     const data = await literatur.findAll({
+      order: [["id", "DESC"]],
       include: [
         {
           model: user,
@@ -267,6 +269,7 @@ exports.myLiterature = async (req, res) => {
       where: {
         userId: req.user.id,
       },
+      order: [["id", "DESC"]],
       include: [
         {
           model: user,
@@ -436,6 +439,7 @@ exports.myCollections = async (req, res) => {
       where: {
         Iduser: req.user.id,
       },
+      order: [["id", "DESC"]],
       include: [
         {
           model: user,

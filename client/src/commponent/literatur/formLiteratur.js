@@ -14,7 +14,7 @@ function FormLiteratur() {
     ISBN: "",
     author: "",
     about: "",
-    status: "",
+    status: "Waiting Approve",
     attache: "",
   });
 
