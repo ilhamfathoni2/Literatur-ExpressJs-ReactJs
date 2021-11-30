@@ -1,19 +1,16 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router";
 import { Container, Image, Button, Form } from "react-bootstrap";
 
 import email from "../../src-assets/email.png";
 import gender from "../../src-assets/Gender.png";
 import phone from "../../src-assets/phone.png";
 import map from "../../src-assets/map.png";
-import imgdef from "../../src-assets/Avatar.png";
 
 import "./profile.css";
 
 import { API } from "../../config/api";
 
 function Personal({ item }) {
-  let history = useHistory();
   const [preview, setPreview] = useState("");
 
   const [form, setForm] = useState({

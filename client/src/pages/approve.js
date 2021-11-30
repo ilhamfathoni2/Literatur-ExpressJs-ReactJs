@@ -3,10 +3,10 @@ import { Container, Card, Table } from "react-bootstrap";
 import FilterStatus from "../commponent/navbar/filter";
 
 import NavAdmin from "../commponent/navbar/navAdmin";
-import TableVerify from "../commponent/verifiy/table";
+import TbApprove from "../commponent/verifiy/tbapprove";
 import { API } from "../config/api";
 
-function BookVerification() {
+function Approvel() {
   const title = "Verification";
   document.title = "Literatur | " + title;
 
@@ -14,7 +14,7 @@ function BookVerification() {
 
   const getLiteratur = async () => {
     try {
-      const response = await API.get("/literatur-waiting");
+      const response = await API.get("/literatur-approve");
       setLiteratur(response.data.data);
     } catch (error) {
       console.log(error);
@@ -47,7 +47,7 @@ function BookVerification() {
                 </thead>
                 <tbody>
                   {literatur.map((item, index) => (
-                    <TableVerify item={item} num={index} key={index} />
+                    <TbApprove item={item} num={index} key={index} />
                   ))}
                 </tbody>
               </Table>
@@ -66,4 +66,4 @@ function BookVerification() {
   );
 }
 
-export default BookVerification;
+export default Approvel;

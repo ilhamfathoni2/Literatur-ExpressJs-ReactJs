@@ -1,6 +1,7 @@
 const { user, literatur, book_mark, sequelize } = require("../../models");
 const { Op } = require("sequelize");
 const pathFile = "http://localhost:5000/uploads/";
+const fs = require("fs");
 
 exports.addLiteratur = async (req, res) => {
   try {
@@ -127,6 +128,162 @@ exports.searchLiteratur = async (req, res) => {
 exports.getLiteraturs = async (req, res) => {
   try {
     const data = await literatur.findAll({
+      order: [["id", "DESC"]],
+      include: [
+        {
+          model: user,
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "password"],
+          },
+        },
+      ],
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
+    });
+
+    const allData = data.map((item) => ({
+      id: item.id,
+      title: item.title,
+      userId: item.userId,
+      fullName: item.user.fullName,
+      email: item.user.email,
+      phone: item.user.phone,
+      address: item.user.address,
+      gender: item.user.gender,
+      role: item.user.role,
+      publication_date: item.publication_date,
+      pages: item.pages,
+      ISBN: item.ISBN,
+      author: item.author,
+      attache: pathFile + item.attache,
+      about: item.about,
+      status: item.status,
+    }));
+
+    res.send({
+      status: "success",
+      data: allData,
+    });
+  } catch (error) {
+    console.log(error);
+    res.send({
+      status: "failed",
+      message: "Server Error",
+    });
+  }
+};
+
+exports.literaturWaiting = async (req, res) => {
+  try {
+    const data = await literatur.findAll({
+      where: {
+        status: "Waiting Approve",
+      },
+      order: [["id", "DESC"]],
+      include: [
+        {
+          model: user,
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "password"],
+          },
+        },
+      ],
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
+    });
+
+    const allData = data.map((item) => ({
+      id: item.id,
+      title: item.title,
+      userId: item.userId,
+      fullName: item.user.fullName,
+      email: item.user.email,
+      phone: item.user.phone,
+      address: item.user.address,
+      gender: item.user.gender,
+      role: item.user.role,
+      publication_date: item.publication_date,
+      pages: item.pages,
+      ISBN: item.ISBN,
+      author: item.author,
+      attache: pathFile + item.attache,
+      about: item.about,
+      status: item.status,
+    }));
+
+    res.send({
+      status: "success",
+      data: allData,
+    });
+  } catch (error) {
+    console.log(error);
+    res.send({
+      status: "failed",
+      message: "Server Error",
+    });
+  }
+};
+
+exports.literaturApprove = async (req, res) => {
+  try {
+    const data = await literatur.findAll({
+      where: {
+        status: "Approve",
+      },
+      order: [["id", "DESC"]],
+      include: [
+        {
+          model: user,
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "password"],
+          },
+        },
+      ],
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
+    });
+
+    const allData = data.map((item) => ({
+      id: item.id,
+      title: item.title,
+      userId: item.userId,
+      fullName: item.user.fullName,
+      email: item.user.email,
+      phone: item.user.phone,
+      address: item.user.address,
+      gender: item.user.gender,
+      role: item.user.role,
+      publication_date: item.publication_date,
+      pages: item.pages,
+      ISBN: item.ISBN,
+      author: item.author,
+      attache: pathFile + item.attache,
+      about: item.about,
+      status: item.status,
+    }));
+
+    res.send({
+      status: "success",
+      data: allData,
+    });
+  } catch (error) {
+    console.log(error);
+    res.send({
+      status: "failed",
+      message: "Server Error",
+    });
+  }
+};
+
+exports.literaturCancel = async (req, res) => {
+  try {
+    const data = await literatur.findAll({
+      where: {
+        status: "Cancel",
+      },
       order: [["id", "DESC"]],
       include: [
         {
@@ -492,15 +649,13 @@ exports.deleteBookMark = async (req, res) => {
 
 exports.deleteLiteratur = async (req, res) => {
   try {
-    const { idUser } = req.user;
     const { id } = req.params;
-
     await literatur.destroy({
       where: {
         id,
       },
-      idUser,
     });
+
     const data = await literatur.findOne({
       where: {
         id,

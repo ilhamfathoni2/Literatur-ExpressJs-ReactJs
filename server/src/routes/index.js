@@ -25,6 +25,9 @@ const {
   myLiterature,
   searchLiteratur,
   downloadPDF,
+  literaturWaiting,
+  literaturApprove,
+  literaturCancel,
 } = require("../controllers/literatur");
 
 const { avatarFile } = require("../middlewares/avatar");
@@ -44,6 +47,9 @@ router.get("/user-data", auth, user);
 
 // Literatur
 router.get("/literatur", auth, getLiteraturs);
+router.get("/literatur-waiting", auth, literaturWaiting);
+router.get("/literatur-approve", auth, literaturApprove);
+router.get("/literatur-cancel", auth, literaturCancel);
 router.get("/literatur/:id", auth, getLiteraturId);
 router.patch("/literatur/:id", auth, editLiteratur);
 router.get("/my-literature", auth, myLiterature);

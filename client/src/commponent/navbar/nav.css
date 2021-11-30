@@ -84,3 +84,19 @@ a:active {
   background: none !important;
   border: none !important;
 }
+
+.mg-3 {
+  margin-right: 20px;
+}
+
+.hov {
+  color: white;
+}
+
+.hov:hover {
+  color: white !important;
+}
+
+.hov:focus {
+  color: white !important;
+}
