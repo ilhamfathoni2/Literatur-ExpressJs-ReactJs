@@ -16,7 +16,7 @@ function DeetailCollect() {
 
   const getLiteratur = async () => {
     try {
-      const response = await API.get(`/literatur/${id}`);
+      const response = await API.get(`/collections/${id}`);
 
       setLiteratur(response.data.data);
     } catch (error) {

@@ -28,6 +28,7 @@ const {
   literaturWaiting,
   literaturApprove,
   literaturCancel,
+  detailMyCollections,
 } = require("../controllers/literatur");
 
 const { avatarFile } = require("../middlewares/avatar");
@@ -55,6 +56,7 @@ router.patch("/literatur/:id", auth, editLiteratur);
 router.get("/my-literature", auth, myLiterature);
 router.delete("/literatur/:id", auth, deleteLiteratur);
 router.get("/collections", auth, myCollections);
+router.get("/collections/:id", auth, detailMyCollections);
 router.delete("/collections/:id", auth, deleteBookMark);
 router.post("/book-mark", auth, bookMark);
 

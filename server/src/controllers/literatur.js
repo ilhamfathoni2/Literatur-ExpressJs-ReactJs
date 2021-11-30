@@ -564,14 +564,14 @@ exports.myCollections = async (req, res) => {
           model: user,
           as: "dataUser",
           attributes: {
-            exclude: ["createdAt", "updatedAt", "password"],
+            exclude: ["id", "createdAt", "updatedAt", "password"],
           },
         },
         {
           model: literatur,
           as: "dataLiteratur",
           attributes: {
-            exclude: ["createdAt", "updatedAt"],
+            exclude: ["id", "createdAt", "updatedAt"],
           },
         },
       ],
@@ -583,6 +583,67 @@ exports.myCollections = async (req, res) => {
     const collections = data.map((item) => ({
       id: item.id,
       titleId: item.titleId,
+      title: item.dataLiteratur.title,
+      userId: item.dataLiteratur.userId,
+      fullName: item.dataUser.fullName,
+      email: item.dataUser.email,
+      phone: item.dataUser.phone,
+      address: item.dataUser.address,
+      gender: item.dataUser.gender,
+      role: item.dataUser.role,
+      publication_date: item.dataLiteratur.publication_date,
+      pages: item.dataLiteratur.pages,
+      ISBN: item.dataLiteratur.ISBN,
+      author: item.dataLiteratur.author,
+      attache: pathFile + item.dataLiteratur.attache,
+      about: item.dataLiteratur.about,
+      status: item.dataLiteratur.status,
+    }));
+
+    res.send({
+      status: "success",
+      data: collections,
+    });
+  } catch (error) {
+    console.log(error);
+    res.send({
+      status: "failed",
+      message: "Server Error",
+    });
+  }
+};
+
+exports.detailMyCollections = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const data = await book_mark.findAll({
+      where: {
+        id,
+      },
+      include: [
+        {
+          model: user,
+          as: "dataUser",
+          attributes: {
+            exclude: ["id", "createdAt", "updatedAt", "password"],
+          },
+        },
+        {
+          model: literatur,
+          as: "dataLiteratur",
+          attributes: {
+            exclude: ["id", "createdAt", "updatedAt"],
+          },
+        },
+      ],
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
+    });
+
+    const collections = data.map((item) => ({
+      id: item.id,
       title: item.dataLiteratur.title,
       userId: item.dataLiteratur.userId,
       fullName: item.dataUser.fullName,

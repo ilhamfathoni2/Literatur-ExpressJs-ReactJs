@@ -1,11 +1,16 @@
 import { Container, Image, Button } from "react-bootstrap";
+import { useHistory } from "react-router";
 
 import iconDownload from "../../src-assets/cloud-computing.png";
+import removeIcon from "../../src-assets/remove.png";
 
 import "../../commponent/add-collection/collect.css";
 import moment from "moment";
+import { API } from "../../config/api";
 
 function DetailsMyCollects({ item }) {
+  let history = useHistory();
+
   const handleDownload = async (fileURL, filename) => {
     try {
       await fetch(fileURL, {
@@ -32,11 +37,20 @@ function DetailsMyCollects({ item }) {
     }
   };
 
+  const deleteMyCollection = async (e) => {
+    try {
+      await API.delete(`/collections/${item.id}`);
+      history.push("/my-collection");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <Container>
-        <div className="d-flex justify-content-start mt-5 mb-5">
-          <div className="collectst">
+        <div className="d-flex justify-content-between mt-5 mb-5">
+          <div className="collect">
             <iframe src={item.attache} className="img-view" />
           </div>
           <div className="d-flex flex-column">
@@ -55,6 +69,11 @@ function DetailsMyCollects({ item }) {
               className="download"
             >
               Download <Image src={iconDownload} className="icons" />
+            </Button>
+          </div>
+          <div className="btn-collection">
+            <Button onClick={deleteMyCollection} variant="danger">
+              Remove My Collection <Image src={removeIcon} className="icons" />
             </Button>
           </div>
         </div>

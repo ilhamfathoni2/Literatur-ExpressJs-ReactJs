@@ -57,6 +57,8 @@ function BookVerification() {
         </Container>
       ) : (
         <Container>
+          <h1 className="title-litera mt-5 mb-4">Book verification</h1>
+          <FilterStatus />
           <div className="text-center mb-5">
             <h3 className="mt-3">No data</h3>
           </div>
