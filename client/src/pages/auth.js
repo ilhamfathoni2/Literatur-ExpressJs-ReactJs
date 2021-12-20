@@ -158,21 +158,12 @@ function AuthPage() {
 
         if (response.data.data.role === "admin") {
           history.push("/verification");
-        } else {
-          history.push("/home");
         }
-
-        const alert = (
-          <Alert variant="success" className="py-1">
-            Login success
-          </Alert>
-        );
-        setMessage(alert);
       }
     } catch (error) {
       const alert = (
         <Alert variant="danger" className="py-1">
-          Login failed
+          Worng Email or Password
         </Alert>
       );
       setMessage(alert);
@@ -284,6 +275,7 @@ function AuthPage() {
                 <Modal.Body className="bg-blacks">
                   <Container>
                     <h4 className="title-sign-up mb-5 mt-4">Sign In</h4>
+                    {message && message}
                     <Form onSubmit={handleLogin}>
                       <Form.Group className="mb-3 mt-2">
                         <Form.Control

@@ -57,7 +57,7 @@ function Personal({ item }) {
                 <Image src={email} className="item-icon" />
               </div>
               <div className="details">
-                <h6 className="color-light mb-1">{item.fullName}</h6>
+                <h6 className="color-light mb-1">{item.email}</h6>
                 <p className="color-second mt-0">Email</p>
               </div>
             </div>

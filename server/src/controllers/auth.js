@@ -1,9 +1,9 @@
+const fs = require("fs");
 const { user } = require("../../models");
 const Joi = require("joi");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const pathFile = "http://localhost:5000/uploads/";
-const fs = require("fs");
 
 exports.register = async (req, res) => {
   const schema = Joi.object({

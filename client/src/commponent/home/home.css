@@ -6,9 +6,9 @@
   width: 700px;
 }
 
-.view-pdf {
+.views-pdf {
   width: 180px;
-  height: 280px;
+  height: 250px;
   border-radius: 5px;
 }
 
@@ -63,6 +63,7 @@
   text-overflow: ellipsis;
   overflow: hidden;
   max-width: 175px;
+  white-space: nowrap;
 }
 
 .space {

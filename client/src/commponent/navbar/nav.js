@@ -24,7 +24,12 @@ function Navbar() {
     <>
       <Container>
         <Nav className="mt-4 d-flex justify-content-between center-items">
-          <div className="d-flex justify-content-start">
+          <div className="d-flex justify-content-start align-items-center">
+            <Nav.Item>
+              <Link to="/home">
+                <Image src={Logo} className="mn-t-2" />
+              </Link>
+            </Nav.Item>
             <Nav.Item>
               <Link to="/profile">Profile</Link>
             </Nav.Item>
@@ -34,14 +39,12 @@ function Navbar() {
             <Nav.Item>
               <Link to="/add-literatur">Add Literature</Link>
             </Nav.Item>
-            <Nav.Item onClick={handleLogout}>
-              <h6 className="nav-logout">Logout</h6>
-            </Nav.Item>
           </div>
-          <Nav.Item className="d-flex justify-content-end">
-            <Link to="/home">
-              <Image src={Logo} />
-            </Link>
+          <Nav.Item
+            onClick={handleLogout}
+            className="d-flex justify-content-end"
+          >
+            <h6 className="nav-logout">Logout</h6>
           </Nav.Item>
         </Nav>
       </Container>

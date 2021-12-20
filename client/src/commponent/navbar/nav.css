@@ -14,6 +14,10 @@ a:active {
   color: #af2e1c !important;
 }
 
+.mn-t-2 {
+  margin: -17px 30px 0 0;
+}
+
 .nav-logout {
   color: white !important;
   text-decoration: none !important;
@@ -23,12 +27,22 @@ a:active {
   cursor: pointer;
 }
 
+.nav-logout {
+  color: #ffffff8c !important;
+  border: #ffffff8c solid 3px;
+  border-radius: 5px;
+  padding: 5px 15px 5px 15px;
+  margin-right: 0 !important;
+}
+
 .nav-logout:hover {
   color: #af2e1c !important;
+  border: #af2e1c solid 3px;
 }
 
 .nav-logout:focus {
   color: #af2e1c !important;
+  border: #af2e1c solid 3px;
 }
 
 .bg-darks {

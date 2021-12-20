@@ -119,7 +119,7 @@ function Search() {
                   })
                   .map((item, index) => (
                     <div className="space">
-                      <iframe src={item.attache} className="view-pdf" />
+                      <iframe src={item.attache} className="views-pdf" />
                       <Link to={`/add-collection/${item.id}`}>
                         <h5 className="title-book mt-3">{item.title}</h5>
                         <p className="author">{item.author}</p>
